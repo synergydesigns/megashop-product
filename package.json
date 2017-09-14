@@ -1,0 +1,30 @@
+{
+  "name": "megashop-product",
+  "version": "1.0.0",
+  "description": "product service for mega shop",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "npm run test",
+    "jenkins": "Docker build -f ./config/docker/Dockerfile.jenkins ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/synergydesigns/megashop-product.git"
+  },
+  "keywords": [
+    "mega",
+    "ecommerce",
+    "shop",
+    "multi-tenant",
+    "store"
+  ],
+  "author": "synergy designs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/synergydesigns/megashop-product/issues"
+  },
+  "homepage": "https://github.com/synergydesigns/megashop-product#readme"
+}

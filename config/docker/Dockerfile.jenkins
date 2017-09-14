@@ -1,0 +1,9 @@
+FROM jenkinsci/jenkins:lts
+
+MAINTAINER Synergy Designs <<synergydesigns@gmail.com>>
+
+VOLUME ./data/jenkis
+
+EXPOSE 7070
+EXPOSE 6060
+
