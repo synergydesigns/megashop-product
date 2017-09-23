@@ -8,6 +8,7 @@ ADD . /var/www
 WORKDIR /var/www
 
 CMD ["npm", "install"]
+CMD ["npm", "migrate"]
 
 CMD ["npm", "start"]
 
