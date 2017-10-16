@@ -10,4 +10,4 @@ app.set('port', port);
 
 const server = http.createServer(app);
 server.listen(port);
-logger.info(`MEGASHOP PRODUCT SERVER is running on ${process.env.HOST}:${port}/`);
+logger.info(`Service running on ${process.env.HOST}:${port}/`);
