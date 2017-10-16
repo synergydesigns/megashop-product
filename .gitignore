@@ -12,3 +12,5 @@ node_modules
 
 # Ignores .DS_Store file created by macOS 
 .DS_Store
+
+package-lock.json
