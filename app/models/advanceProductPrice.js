@@ -1,22 +1,63 @@
 module.exports = (sequelize, DataTypes) => {
   const advanceProductPrice = sequelize.define('advanceProductPrice', {
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+      validate: {
+        isDecimal: {
+          args: true,
+          msg: 'Please, enter a valid price'
+        }
+      }
     },
     date_from: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: new Date(),
+      validate: {
+        isDate: {
+          args: true,
+          msg: 'Please, enter a valid date'
+        }
+      }
     },
     date_to: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        isDate: {
+          args: true,
+          msg: 'Please, enter a valid date'
+        }
+      }
     },
     advance_product_pricecol: {
-      type: DataTypes.STRING
+      type: DataTypes.DECIMAL,
+      validate: {
+        isDecimal: {
+          args: true,
+          msg: 'Please, enter a valid price'
+        }
+      }
     },
     advance_product_pricecol1: {
-      type: DataTypes.STRING
+      type: DataTypes.DECIMAL,
+      validate: {
+        isDecimal: {
+          args: true,
+          msg: 'Please, enter a valid price'
+        }
+      }
     },
     product_id: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        isInt: {
+          args: true,
+          msg: 'Please, enter a valid product id'
+        }
+      }
     }
   }, {
     classMethods: {

@@ -8,7 +8,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       price: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DECIMAL
       },
       date_from: {
         type: Sequelize.DATE
@@ -17,10 +17,10 @@ module.exports = {
         type: Sequelize.DATE
       },
       advance_product_pricecol: {
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
       },
       advance_product_pricecol1: {
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
       },
       product_id: {
         type: Sequelize.INTEGER,

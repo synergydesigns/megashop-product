@@ -11,16 +11,16 @@ module.exports = {
         type: Sequelize.STRING
       },
       price: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DECIMAL
       },
       category_id: {
         type: Sequelize.INTEGER
       },
       quantity: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DECIMAL
       },
       amount: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DECIMAL
       },
       description: {
         type: Sequelize.TEXT
@@ -41,13 +41,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       weight: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DECIMAL
       },
       height: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DECIMAL
       },
       depth: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DECIMAL
       },
       visible: {
         type: Sequelize.BOOLEAN
