@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "npm run test",
-    "jenkins": "Docker build -f ./config/docker/Dockerfile.jenkins ."
+    "jenkins": "Docker build -f ./config/docker/Dockerfile.jenkins .",
+    "dev-server": "babel-watch ./server.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,25 @@
   "bugs": {
     "url": "https://github.com/synergydesigns/megashop-product/issues"
   },
-  "homepage": "https://github.com/synergydesigns/megashop-product#readme"
+  "homepage": "https://github.com/synergydesigns/megashop-product#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "js-logger": "^1.4.1",
+    "morgan": "^1.9.0",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.14.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-watch": "^2.0.7",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb-base": "^12.0.2",
+    "eslint-plugin-import": "^2.2.0"
+  }
 }
