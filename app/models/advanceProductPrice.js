@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const advanceProductPrice = sequelize.define('advanceProductPrice', {
+  const advanceProductPrice = sequelize.define('AdvanceProductPrice', {
     price: {
       type: DataTypes.DECIMAL,
       allowNull: false,
@@ -42,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
+    tableName: 'Advance_product_price',
     classMethods: {
       associate: (models) => {
         advanceProductPrice.belongsTo(

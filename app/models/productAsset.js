@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const productAsset = sequelize.define('productAsset', {
+  const productAsset = sequelize.define('ProductAsset', {
     type: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
+    tableName: 'product_asset',
     classMethods: {
       associate: (models) => {
         productAsset.belongsTo(

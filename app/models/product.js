@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const product = sequelize.define('product', {
+  const product = sequelize.define('Product', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,10 +20,11 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    category_id: {
+    categoryId: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: []
+      defaultValue: [],
+      field: 'category_id'
     },
     quantity: {
       type: DataTypes.INTEGER,
@@ -135,7 +136,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    shop_id: {
+    shopId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -143,9 +144,10 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'Please, enter a valid shop id'
         }
-      }
+      },
+      field: 'shop_id'
     },
-    brand_id: {
+    brandId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -153,7 +155,8 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'Please, enter a valid brand id'
         }
-      }
+      },
+      field: 'brand_id'
     }
   }, {
     classMethods: {

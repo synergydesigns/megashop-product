@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('products', {
+    queryInterface.createTable('product', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -37,9 +37,6 @@ module.exports = {
       sku: {
         type: Sequelize.STRING
       },
-      productcol: {
-        type: Sequelize.STRING
-      },
       weight: {
         type: Sequelize.DECIMAL
       },
@@ -58,7 +55,7 @@ module.exports = {
       brands_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'brands',
+          model: 'brand',
           key: 'id'
         }
       },
@@ -71,5 +68,5 @@ module.exports = {
         type: Sequelize.DATE
       }
     }),
-  down: queryInterface => queryInterface.dropTable('products')
+  down: queryInterface => queryInterface.dropTable('product')
 };

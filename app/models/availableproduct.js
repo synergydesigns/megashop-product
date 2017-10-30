@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const availableProduct = sequelize.define('availableProduct', {
+  const availableProduct = sequelize.define('AvailableProduct', {
     release_date: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
+    tableName: 'available_product',
     classMethods: {
       associate: (models) => {
         availableProduct.belongsTo(
