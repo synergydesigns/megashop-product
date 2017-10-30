@@ -23,69 +23,44 @@ module.exports = (sequelize, DataTypes) => {
     categoryId: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: [],
-      field: 'category_id'
+      field: 'category_id',
+      set(val) {
+        val = val || [];
+        this.setDataValue('categoryId', val.join(', '));
+      },
+      get() {
+        const val = this.getDataValue('categoryId');
+        if (val) {
+          return val.split(',').map(key => parseInt(key, 10))
+        }
+        return []
+      }
     },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0,
-      validate: {
-        isInt: {
-          args: true,
-          msg: 'Please, enter a valid product\'s quantity'
-        }
-      }
+      defaultValue: 0
     },
     amount: {
       type: DataTypes.DECIMAL,
-      validate: {
-        isDecimal: {
-          args: true,
-          msg: 'Please, enter a valid price'
-        }
-      }
+      allowNull: false,      
+      defaultValue: 0
     },
     description: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      validate: {
-        is: {
-          args: /\w+/g,
-          msg: 'Enter a valid product\'s description'
-        }
-      }
+      type: DataTypes.TEXT
     },
     available: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: false,      
       defaultValue: false,
-      validate: {
-        isIn: {
-          args: [[true, false]],
-          msg: 'This field requires true or false value'
-        }
-      }
     },
     hot: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false,
-      validate: {
-        isIn: {
-          args: [[true, false]],
-          msg: 'This field requires true or false value'
-        }
-      }
+      defaultValue: false
     },
     type: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: 'This field cannot be empty'
-        }
-      }
     },
     sku: {
       type: DataTypes.STRING,
@@ -96,45 +71,18 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    productcol: {
-      type: DataTypes.INTEGER
-    },
     weight: {
       type: DataTypes.DECIMAL,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: 'This field cannot be empty'
-        },
-        isDecimal: {
-          msg: 'Enter a valid product weight'
-        }
-      }
     },
     height: {
       type: DataTypes.DECIMAL,
-      validate: {
-        isDecimal: {
-          msg: 'Enter a valid product height'
-        }
-      }
     },
     depth: {
       type: DataTypes.DECIMAL,
-      validate: {
-        isDecimal: {
-          msg: 'Enter a valid product depth'
-        }
-      }
     },
     visible: {
       type: DataTypes.BOOLEAN,
-      validate: {
-        isIn: {
-          args: [[true, false]],
-          msg: 'This field requires true or false value'
-        }
-      }
+      defaultValue: true
     },
     shopId: {
       type: DataTypes.INTEGER,
@@ -149,16 +97,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     brandId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: {
-          args: true,
-          msg: 'Please, enter a valid brand id'
-        }
-      },
       field: 'brand_id'
     }
   }, {
+    tableName: 'product',
     classMethods: {
       associate: (models) => {
         product.belongsTo(

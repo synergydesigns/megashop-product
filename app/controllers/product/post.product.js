@@ -1,7 +1,11 @@
 import Joi from 'joi';
 import validator from 'express-validation';
 
-import Models from '../../models/index';
+import Model from '../../models/index';
+import wrap from '../../../lib/asyncWrapper';
+
+const { Product } = Model;
+
 
 const validate = {
   body: Joi.object().keys({
@@ -12,9 +16,9 @@ const validate = {
     quantity: Joi.number().default(0),
     available: Joi.boolean().default(true),
     visible: Joi.boolean().default(true),
-    brand_id: Joi.number(),
-    shop_id: Joi.number().required(),
-    description: Joi.string(),
+    brandId: Joi.number(),
+    shopId: Joi.number().required(),
+    description: Joi.string().default(''),
     downloadable: Joi.boolean().default(false)
   })
 };
@@ -25,13 +29,14 @@ const validate = {
  * @param {object} res
  * @return {object} response object
  */
-function handler(req, res) {
-  res.status(201).json({
-    body: req.body
+async function handler(req, res) {
+  const product = await Product.create(req.body);
+  return res.status(201).json({
+    data: product
   });
 }
 
 module.exports = [
   validator(validate),
-  handler
+  wrap(handler)
 ];

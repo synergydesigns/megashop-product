@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.DECIMAL
       },
       category_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       quantity: {
         type: Sequelize.DECIMAL
@@ -52,7 +52,7 @@ module.exports = {
       shop_id: {
         type: Sequelize.INTEGER
       },
-      brands_id: {
+      brand_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'brand',

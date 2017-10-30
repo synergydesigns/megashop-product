@@ -22,7 +22,7 @@ router.post('/products', require('./app/controllers/product/post.product'));
 
 app.use('/api/v1', router);
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   if (err) {
     if (err instanceof validate.ValidationError) {
       res.status(400).send({
@@ -30,17 +30,23 @@ app.use((err, req, res, next) => {
         message: err.statusText,
         errors: err.errors.map(error => ({
           field: error.field[0],
-          message: error.messages[0],
+          message: error.messages,
           location: error.location
         }))
       });
     }
-    next();
+    if (err.status) {
+      return res
+        .status(err.status)
+        .send({ message: err.message });
+    }
+    res.status(500)
+      .json({ message: 'Server Error' });
   }
 });
 
 app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome to Mega Shop Product Microservice',
+  message: 'Welcome to Mega Shop Product Micro service',
 }));
 
 export default app;
