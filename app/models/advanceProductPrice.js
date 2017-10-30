@@ -31,24 +31,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    advance_product_pricecol: {
-      type: DataTypes.DECIMAL,
-      validate: {
-        isDecimal: {
-          args: true,
-          msg: 'Please, enter a valid price'
-        }
-      }
-    },
-    advance_product_pricecol1: {
-      type: DataTypes.DECIMAL,
-      validate: {
-        isDecimal: {
-          args: true,
-          msg: 'Please, enter a valid price'
-        }
-      }
-    },
     product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -21,14 +21,9 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     category_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isInt: {
-          args: true,
-          msg: 'Please, enter a valid category id'
-        }
-      }
+      defaultValue: []
     },
     quantity: {
       type: DataTypes.INTEGER,
