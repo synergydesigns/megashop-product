@@ -31,9 +31,9 @@ module.exports = (sequelize, DataTypes) => {
       get() {
         const val = this.getDataValue('categoryId');
         if (val) {
-          return val.split(',').map(key => parseInt(key, 10))
+          return val.split(',').map(key => parseInt(key, 10));
         }
-        return []
+        return [];
       }
     },
     quantity: {
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     amount: {
       type: DataTypes.DECIMAL,
-      allowNull: false,      
+      allowNull: false,
       defaultValue: 0
     },
     description: {
@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     available: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,      
+      allowNull: false,
       defaultValue: false,
     },
     hot: {
@@ -68,7 +68,21 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           msg: 'This field cannot be empty'
+        },
+        isUnique(sku, next) {
+          product.findOne({
+            where: {
+              shopId: this.shopId,
+              sku
+            }
+          }).then((prod) => {
+            if (prod) {
+              return next(new Error('Oops. product with this sku already exist'));
+            }
+            next();
+          });
         }
+
       }
     },
     weight: {

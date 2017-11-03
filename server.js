@@ -11,6 +11,8 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
-server.listen(port);
+app.listen(port);
 
 logger.info(`Service running on ${process.env.HOST}:${port}`);
+
+export default server;

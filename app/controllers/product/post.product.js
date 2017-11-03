@@ -1,8 +1,8 @@
 import Joi from 'joi';
 import validator from 'express-validation';
 
-import Model from '../../models/index';
-import wrap from '../../../lib/asyncWrapper';
+import Model from '../../db/models/index';
+import wrap from '../../lib/asyncWrapper';
 
 const { Product } = Model;
 
@@ -30,7 +30,7 @@ const validate = {
  * @return {object} response object
  */
 async function handler(req, res) {
-  const product = await Product.create(req.body);
+  const product = await Product.create(req.body)
   return res.status(201).json({
     data: product
   });

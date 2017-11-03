@@ -7,9 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "npm run test",
-    "jenkins": "Docker build -f ./config/docker/Dockerfile.jenkins .",
-    "dev-server": "babel-watch ./server.js",
+    "test": "node_modules/.bin/_mocha --compilers js:babel-core/register spec/**/spec.*.js",
+    "dev": "babel-watch ./server.js",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all"
   },
@@ -49,10 +48,15 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-es2017": "^6.24.1",
+    "babel-register": "^6.26.0",
     "babel-watch": "^2.0.7",
+    "chai": "^4.1.2",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-airbnb-base": "^12.0.2",
-    "eslint-plugin-import": "^2.2.0"
+    "eslint-plugin-import": "^2.2.0",
+    "faker": "^4.1.0",
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0"
   }
 }
