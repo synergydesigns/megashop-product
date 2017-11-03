@@ -28,22 +28,31 @@ app.use('/api/v1', router);
 
 app.use((err, req, res, next) => {
   if (err instanceof validate.ValidationError) {
-    return res.status(400).send({
+    return res.status(422).json({
       status: err.status,
       message: err.statusText,
       errors: err.errors.map(error => ({
-        field: error.field[0],
+        field: error.field.join(', '),
         message: error.messages.join(', '),
-        location: error.location
+        location: error.location,
       }))
     });
-  }
-  if (err.status) {
+  } else if (err.name === 'SequelizeValidationError') {
+    return res.status(422).json({
+      status: 422,
+      message: 'An error occurred validating your request',
+      errors: err.errors.map(error => ({
+        field: error.path,
+        message: error.message,
+        location: 'database',
+      }))
+    });
+  } else if (err.status) {
     return res
       .status(err.status)
-      .send({ message: err.message });
+      .json({ message: err.message });
   }
   res.status(500)
-    .json({ message: 'Server Error' });
+    .json({ message: 'Server Error', err });
 });
 export default app;

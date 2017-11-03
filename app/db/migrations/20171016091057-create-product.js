@@ -52,6 +52,10 @@ module.exports = {
       shop_id: {
         type: Sequelize.INTEGER
       },
+      downloadable: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       brand_id: {
         type: Sequelize.INTEGER,
         references: {

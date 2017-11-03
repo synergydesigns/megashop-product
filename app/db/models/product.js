@@ -2,13 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const product = sequelize.define('Product', {
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        is: {
-          args: /\w+/g,
-          msg: 'Enter a valid name'
-        }
-      }
+      allowNull: false
     },
     price: {
       type: DataTypes.DECIMAL,
@@ -77,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
             }
           }).then((prod) => {
             if (prod) {
-              return next(new Error('Oops. product with this sku already exist'));
+              return next(new Error('product with this sku already exist'));
             }
             next();
           });
@@ -98,15 +92,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: true
     },
+    downloadable: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     shopId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      validate: {
-        isInt: {
-          args: true,
-          msg: 'Please, enter a valid shop id'
-        }
-      },
       field: 'shop_id'
     },
     brandId: {
