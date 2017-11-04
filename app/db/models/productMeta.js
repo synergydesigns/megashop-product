@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const productMeta = sequelize.define('productMeta', {
+  const productMeta = sequelize.define('ProductMeta', {
     product_id: {
       type: DataTypes.INTEGER,
       validate: {
@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
+    tableName: 'product_meta',
     classMethods: {
       associate: (models) => {
         productMeta.belongsTo(

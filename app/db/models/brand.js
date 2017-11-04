@@ -1,44 +1,44 @@
 module.exports = (sequelize, DataTypes) => {
-  const availableProduct = sequelize.define('availableProduct', {
-    release_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      validate: {
-        isDate: {
-          args: true,
-          msg: 'Please, enter a valid date'
-        }
-      }
-    },
-    message: {
-      type: DataTypes.TEXT,
+  const brand = sequelize.define('Brand', {
+    name: {
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         is: {
           args: /\w+/g,
-          msg: 'Enter a valid message'
+          msg: 'Please, enter a valid brand name'
         }
       }
     },
-    product_id: {
+    description: {
+      type: DataTypes.TEXT,
+      validate: {
+        is: {
+          args: /\w+/g,
+          msg: 'Enter a valid description'
+        }
+      }
+    },
+    shop_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         isInt: {
           args: true,
-          msg: 'Please, enter a valid product id'
+          msg: 'Please, enter a valid shop id'
         }
       }
     }
   }, {
     classMethods: {
       associate: (models) => {
-        availableProduct.belongsTo(
+        brand.hasMany(
           models.product,
-          { foreignKey: 'product_id' }
+          { foreignKey: 'brand_id' }
         );
+        // associations can be defined here
       }
     }
   });
-  return availableProduct;
+  return brand;
 };
