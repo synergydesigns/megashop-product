@@ -40,6 +40,6 @@ module.exports = (sequelize, DataTypes) => {
         );
       }
     }
-  })
+  });
   return availableProduct;
 };
