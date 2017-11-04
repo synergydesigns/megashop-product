@@ -7,7 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "node_modules/.bin/_mocha --compilers js:babel-core/register spec/**/spec.*.js",
+    "test": "npm run migrate &&  node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-core/register spec/**/spec.*.js",
+    "cover": "node_modules/.bin/nyc npm test && nyc report --reporter=cobertura",
     "dev": "babel-watch ./server.js",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all"
@@ -36,6 +37,7 @@
     "express-validation": "^1.0.2",
     "joi": "^13.0.1",
     "js-logger": "^1.4.1",
+    "mocha": "^3.5.3",
     "morgan": "^1.9.0",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
@@ -56,7 +58,7 @@
     "eslint-config-airbnb-base": "^12.0.2",
     "eslint-plugin-import": "^2.2.0",
     "faker": "^4.1.0",
-    "mocha": "^4.0.1",
+    "nyc": "^11.3.0",
     "supertest": "^3.0.0"
   }
 }
