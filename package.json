@@ -10,7 +10,8 @@
     "test": "node_modules/.bin/_mocha --compilers js:babel-core/register spec/**/spec.*.js",
     "dev": "babel-watch ./server.js",
     "migrate": "node_modules/.bin/sequelize db:migrate",
-    "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all"
+    "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all",
+    "postgres": "Docker build -f ./config/docker/Dockerfile.postgres ."
   },
   "repository": {
     "type": "git",

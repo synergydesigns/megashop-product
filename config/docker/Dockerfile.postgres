@@ -1,0 +1,7 @@
+FROM postgres:latest
+
+MAINTAINER Synergy Designs <<synergydesigns@gmail.com>>
+
+VOLUME ./data/postgres
+
+

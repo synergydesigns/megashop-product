@@ -8,8 +8,9 @@ ADD . /var/www
 WORKDIR /var/www
 
 CMD ["npm", "install"]
+CMD ["npm", "migrate"]
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
 
 EXPOSE 8080
 

@@ -1,0 +1,17 @@
+server {
+    listen ${NGINX_PORT};
+
+    server_name localhost;
+
+    location / {
+        proxy_pass ${NGINX_HOST};
+        proxy_pass_header Authorization;
+        proxy_set_header Host ${NGINX_HOST};
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_buffering off;
+        client_max_body_size 0;
+        proxy_read_timeout 36000s;
+        proxy_redirect off;
+    }
+}
