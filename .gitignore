@@ -19,3 +19,4 @@ yarn-error.log
 # Excludes all coverage files from git
 coverage
 .nyc_output
+checkstyle.xml

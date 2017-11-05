@@ -21,11 +21,11 @@ validate.options({
 router.post('/products', require('./app/controllers/product/post.product'));
 
 app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome to Mega Shop Product Micro service',
+  message: 'Welcome to Mega Shop Product Micro services',
 }));
 
 app.use('/api/v1', router);
-
+/* eslint-disable no-unused-vars */
 app.use((err, req, res, next) => {
   if (err instanceof validate.ValidationError) {
     return res.status(422).json({

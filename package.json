@@ -12,7 +12,8 @@
     "dev": "babel-watch ./server.js",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all",
-    "lint": "eslint -f  checkstyle ** > checkstyle.xml"
+    "lint": "node_modules/.bin/eslint spec/** app/** -f checkstyle > checkstyle.xml",
+    "postgres": "Docker build -f ./config/docker/Dockerfile.postgres ."
   },
   "repository": {
     "type": "git",
@@ -54,7 +55,7 @@
     "babel-register": "^6.26.0",
     "babel-watch": "^2.0.7",
     "chai": "^4.1.2",
-    "eslint": "^4.9.0",
+    "eslint": "^4.10.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-airbnb-base": "^12.0.2",
     "eslint-plugin-import": "^2.2.0",

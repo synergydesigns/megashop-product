@@ -1,15 +1,16 @@
 FROM node:latest
 
-MAINTAINER Synergy Designs <<synergydesigns@gmail.com>>
+LABEL Synergy Designs <<synergydesigns@gmail.com>>
 
 COPY . /var/www
 ADD . /var/www
 
 WORKDIR /var/www
 
-CMD ["npm", "install"]
+RUN ["npm", "install"]
+RUN ["npm", "migrate"]
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
 
 EXPOSE 8080
 

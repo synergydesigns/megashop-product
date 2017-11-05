@@ -7,7 +7,7 @@
  *  @param {function} handler handler
  *  @returns {object} response object
  */
-const wrapper = handler => 
+const wrapper = handler =>
   (req, res, next) => Promise.resolve(handler(req, res, next))
     .catch((next));
 
