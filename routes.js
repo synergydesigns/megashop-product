@@ -25,7 +25,7 @@ app.get('*', (req, res) => res.status(200).send({
 }));
 
 app.use('/api/v1', router);
-
+/* eslint-disable no-unused-vars */
 app.use((err, req, res, next) => {
   if (err instanceof validate.ValidationError) {
     return res.status(422).json({

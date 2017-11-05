@@ -34,7 +34,7 @@ describe('GET/products', () => {
           if (err) { throw err; }
           const { data } = res.body;
           expect(data.name).to.equal(testData.name);
-          expect(parseInt(data.price)).to.eql(testData.price);
+          expect(parseInt(data.price, 10)).to.eql(testData.price);
           expect(data.categoryId).to.deep.equal(testData.categoryId);
           expect(data.sku).to.equal(testData.sku);
           expect(data.quantity).to.equal(testData.quantity);
@@ -62,6 +62,7 @@ describe('GET/products', () => {
             expect(error.field).to.equal(fields[index]);
             expect(error.message).to.equal(`"${fields[index]}" is required`);
             expect(error.location).to.equal('body');
+            return error;
           }).length);
           done();
         });
@@ -91,30 +92,28 @@ describe('GET/products', () => {
         });
     });
 
-    it('should return unique constraint if shop already has product sku',
-      (done) => {
-        expect(true).to.eql(true);
-        request.post(base)
-          .send({
-            name: 'test product',
-            sku: testData.sku,
-            shopId: testData.shopId,
-            categoryId: [5]
-          })
-          .expect(422)
-          .end((err, res) => {
-            if (err) { throw err; }
-            const { errors } = res.body;
-            expect(errors).to.deep.equal([
-              {
-                field: 'sku',
-                message: 'product with this sku already exist',
-                location: 'database'
-              }
-            ]);
-            done();
-          });
-      }
-    );
+    it('should return unique constraint if sku exist', (done) => {
+      expect(true).to.eql(true);
+      request.post(base)
+        .send({
+          name: 'test product',
+          sku: testData.sku,
+          shopId: testData.shopId,
+          categoryId: [5]
+        })
+        .expect(422)
+        .end((err, res) => {
+          if (err) { throw err; }
+          const { errors } = res.body;
+          expect(errors).to.deep.equal([
+            {
+              field: 'sku',
+              message: 'product with this sku already exist',
+              location: 'database'
+            }
+          ]);
+          done();
+        });
+    });
   });
 });
