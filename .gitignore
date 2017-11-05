@@ -12,3 +12,11 @@ node_modules
 
 # Ignores .DS_Store file created by macOS 
 .DS_Store
+
+package-lock.json
+yarn-error.log
+
+# Excludes all coverage files from git
+coverage
+.nyc_output
+checkstyle.xml
