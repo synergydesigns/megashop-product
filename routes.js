@@ -21,7 +21,7 @@ validate.options({
 router.post('/products', require('./app/controllers/product/post.product'));
 
 app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome to Mega Shop Product Micro service',
+  message: 'Welcome to Mega Shop Product Micro services',
 }));
 
 app.use('/api/v1', router);
