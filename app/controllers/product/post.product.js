@@ -30,7 +30,7 @@ const validate = {
  * @return {object} response object
  */
 async function handler(req, res) {
-  const product = await Product.create(req.body)
+  const product = await Product.create(req.body);
   return res.status(201).json({
     data: product
   });
