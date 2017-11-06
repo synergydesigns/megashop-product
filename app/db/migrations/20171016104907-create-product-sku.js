@@ -1,20 +1,23 @@
+
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('brand', {
+    queryInterface.createTable('product_sku', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      product_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'product',
+          key: 'id'
+        }
       },
-      description: {
-        type: Sequelize.TEXT
-      },
-      shop_id: {
-        type: Sequelize.INTEGER
+      sku: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -25,5 +28,5 @@ module.exports = {
         type: Sequelize.DATE
       }
     }),
-  down: queryInterface => queryInterface.dropTable('brand')
+  down: queryInterface => queryInterface.dropTable('product_sku')
 };
