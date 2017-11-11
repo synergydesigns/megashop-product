@@ -19,6 +19,8 @@ validate.options({
 
 // routes
 router.post('/products', require('./app/controllers/product/post.product'));
+router.post('/products/:id/variant',require('./app/controllers/product/post.productVariant'));
+
 
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Mega Shop Product Micro services',
@@ -53,6 +55,6 @@ app.use((err, req, res, next) => {
       .json({ message: err.message });
   }
   res.status(500)
-    .json({ message: 'Server Error', err });
+    .json({ message: 'Server Error', error: err });
 });
 export default app;

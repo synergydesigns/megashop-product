@@ -10,14 +10,16 @@ module.exports = {
       },
       product_id: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'product',
-          key: 'id'
-        }
+      },
+      shop_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      variant_id: {
+        type: Sequelize.INTEGER,
       },
       sku: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

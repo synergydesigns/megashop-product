@@ -56,29 +56,6 @@ module.exports = (sequelize, DataTypes) => {
     type: {
       type: DataTypes.STRING,
     },
-    sku: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: 'This field cannot be empty'
-        },
-        isUnique(sku, next) {
-          product.findOne({
-            where: {
-              shopId: this.shopId,
-              sku
-            }
-          }).then((prod) => {
-            if (prod) {
-              return next(new Error('product with this sku already exist'));
-            }
-            next();
-          });
-        }
-
-      }
-    },
     weight: {
       type: DataTypes.DECIMAL,
     },

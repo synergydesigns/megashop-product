@@ -7,18 +7,23 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      product_variant_id: {
+      variantId: {
         type: Sequelize.INTEGER,
+        field: 'variant_id',
         references: {
           model: 'product_variant',
           key: 'id'
         }
       },
-      meta_key: {
+      key: {
         type: Sequelize.STRING
       },
-      meta_value: {
+      value: {
         type: Sequelize.STRING
+      },
+      variant_asset: {
+        type: Sequelize.STRING,
+        field: 'variant_asset'
       },
       createdAt: {
         allowNull: false,

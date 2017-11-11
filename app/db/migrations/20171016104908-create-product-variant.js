@@ -22,14 +22,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 0
       },
-      sku_id: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      product_asset_id: {
-        type: Sequelize.STRING,
-        field: 'product_asset_id'
-      },
       product_id: {
         type: Sequelize.INTEGER,
         references: {

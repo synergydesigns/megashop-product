@@ -1,7 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
-  const productMeta = sequelize.define('ProductMeta', {
-    product_id: {
+  const productVariantMeta = sequelize.define('productVariantMeta', {
+    variantId: {
       type: DataTypes.INTEGER,
+      field: 'variant_id',
       validate: {
         isInt: {
           args: true,
@@ -11,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     key: {
       type: DataTypes.STRING,
-      field: 'meta_key',
       validate: {
         notEmpty: {
           msg: 'This field cannot be empty'
@@ -20,27 +20,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     value: {
       type: DataTypes.STRING,
-      field: 'meta_value',
       validate: {
         notEmpty: {
           msg: 'This field cannot be empty'
         }
       }
-    },
-    asset: {
-      type: DataTypes.STRING,
-      field: 'variant_asset'
     }
   }, {
-    tableName: 'product_meta',
+    tableName: 'product_variant_meta',
     classMethods: {
       associate: (models) => {
-        productMeta.belongsTo(
+        productVariantMeta.belongsTo(
           models.product,
           { foreignKey: 'product_id' }
         );
       }
     }
   });
-  return productMeta;
+  return productVariantMeta;
 };
