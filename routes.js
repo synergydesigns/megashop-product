@@ -18,10 +18,14 @@ validate.options({
 });
 
 // routes
+
+// products
 router.post('/products', require('./app/controllers/product/post.product'));
 router
   .post('/products/:productId/variants', require('./app/controllers/product/post.productVariant'));
 
+// brands
+router.post('/brands', require('./app/controllers/brand/post.brand'));
 
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Mega Shop Product Micro services',
