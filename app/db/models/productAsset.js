@@ -25,8 +25,9 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    product_id: {
+    productId: {
       type: DataTypes.INTEGER,
+      field: 'product_id',
       validate: {
         isInt: {
           args: true,

@@ -1,26 +1,26 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('advance_product_price', {
+    queryInterface.createTable('product_variant', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       price: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL,
+        allowNull: false
       },
-      date_from: {
-        type: Sequelize.DATE
+      quantity: {
+        type: Sequelize.INTEGER,
       },
-      date_to: {
-        type: Sequelize.DATE
-      },
-      advance_product_pricecol: {
-        type: Sequelize.DECIMAL
-      },
-      advance_product_pricecol1: {
-        type: Sequelize.DECIMAL
+      weight: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       product_id: {
         type: Sequelize.INTEGER,
@@ -28,6 +28,10 @@ module.exports = {
           model: 'product',
           key: 'id'
         }
+      },
+      variant_asset: {
+        type: Sequelize.STRING,
+        field: 'variant_asset'
       },
       createdAt: {
         allowNull: false,
@@ -38,5 +42,5 @@ module.exports = {
         type: Sequelize.DATE
       }
     }),
-  down: queryInterface => queryInterface.dropTable('advance_product_price')
+  down: queryInterface => queryInterface.dropTable('product_variant')
 };

@@ -19,6 +19,9 @@ validate.options({
 
 // routes
 router.post('/products', require('./app/controllers/product/post.product'));
+router
+  .post('/products/:productId/variants', require('./app/controllers/product/post.productVariant'));
+
 
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Mega Shop Product Micro services',
@@ -47,12 +50,22 @@ app.use((err, req, res, next) => {
         location: 'database',
       }))
     });
+  } else if (err.name === 'SequelizeForeignKeyConstraintError') {
+    return res.status(400).json({
+      status: 400,
+      message: 'An error occurred foreign Key constraint',
+      errors: {
+        field: err.path,
+        message: err.parent.detail,
+        location: err.parent.table,
+      }
+    });
   } else if (err.status) {
     return res
       .status(err.status)
       .json({ message: err.message });
   }
   res.status(500)
-    .json({ message: 'Server Error', err });
+    .json({ message: 'Server Error', error: err });
 });
 export default app;

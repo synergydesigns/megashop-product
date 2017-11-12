@@ -34,9 +34,6 @@ module.exports = {
       type: {
         type: Sequelize.STRING
       },
-      sku: {
-        type: Sequelize.STRING,
-      },
       weight: {
         type: Sequelize.DECIMAL
       },
@@ -57,11 +54,7 @@ module.exports = {
         defaultValue: false
       },
       brand_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'brand',
-          key: 'id'
-        }
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

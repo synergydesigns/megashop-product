@@ -4,9 +4,9 @@ import validator from 'express-validation';
 import Model from '../../db/models/index';
 import wrap from '../../lib/asyncWrapper';
 
-const { Product } = Model;
+const { Product, ProductSku, sequelize } = Model;
 
-
+// validates incoming request
 const validate = {
   body: Joi.object().keys({
     name: Joi.string().required(),
@@ -30,10 +30,31 @@ const validate = {
  * @return {object} response object
  */
 async function handler(req, res) {
-  const product = await Product.create(req.body);
-  return res.status(201).json({
-    data: product
-  });
+  // setup transaction case product creation fails
+  const transaction = await sequelize.transaction();
+  try {
+    const { sku, shopId } = req.body;
+    const product = await Product.create(req.body, { transaction });
+    if (product) {
+      const productSku = await ProductSku.create({
+        sku,
+        shopId,
+        productId: product.id
+      }, { transaction });
+
+      await transaction.commit();
+
+      const productResponse = { ...product.dataValues, sku: productSku.sku };
+      const categoryId = productResponse.categoryId.split(',').map(key => parseInt(key, 10));
+      return res.status(201).json({
+        data: Object
+          .assign({}, productResponse, { categoryId })
+      });
+    }
+  } catch (e) {
+    await transaction.rollback();
+    throw (e);
+  }
 }
 
 module.exports = [
