@@ -6,7 +6,7 @@ import wrap from '../../lib/asyncWrapper';
 
 const { Product, ProductSku, sequelize } = Model;
 
-// console.log()
+// validates incoming request
 const validate = {
   body: Joi.object().keys({
     name: Joi.string().required(),

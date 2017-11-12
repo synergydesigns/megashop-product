@@ -29,6 +29,10 @@ module.exports = {
           key: 'id'
         }
       },
+      variant_asset: {
+        type: Sequelize.STRING,
+        field: 'variant_asset'
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

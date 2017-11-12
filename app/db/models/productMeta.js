@@ -26,10 +26,6 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'This field cannot be empty'
         }
       }
-    },
-    asset: {
-      type: DataTypes.STRING,
-      field: 'variant_asset'
     }
   }, {
     tableName: 'product_meta',

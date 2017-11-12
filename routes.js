@@ -19,7 +19,8 @@ validate.options({
 
 // routes
 router.post('/products', require('./app/controllers/product/post.product'));
-router.post('/products/:id/variant',require('./app/controllers/product/post.productVariant'));
+router
+  .post('/products/:productId/variants', require('./app/controllers/product/post.productVariant'));
 
 
 app.get('*', (req, res) => res.status(200).send({
@@ -48,6 +49,16 @@ app.use((err, req, res, next) => {
         message: error.message,
         location: 'database',
       }))
+    });
+  } else if (err.name === 'SequelizeForeignKeyConstraintError') {
+    return res.status(400).json({
+      status: 400,
+      message: 'An error occurred foreign Key constraint',
+      errors: {
+        field: err.path,
+        message: err.parent.detail,
+        location: err.parent.table,
+      }
     });
   } else if (err.status) {
     return res

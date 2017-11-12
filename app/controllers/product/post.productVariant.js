@@ -5,7 +5,6 @@ import Model from '../../db/models/index';
 import wrap from '../../lib/asyncWrapper';
 
 const {
-  Product,
   productVariantMeta,
   ProductVariant,
   ProductSku,
@@ -15,48 +14,25 @@ const {
 
 const validate = {
   body: Joi.object().keys({
-    variant: Joi.array().items(Joi.object().keys({
+    variants: Joi.array().items(Joi.object().keys({
       name: Joi.string().required(),
-      skuId: Joi.number().integer(),
-      productAssetId: Joi.number().integer().required(),
+      sku: Joi.string().required(),
+      asset: Joi.number().integer(),
       weight: Joi.number().integer(),
       quantity: Joi.number().integer().default(0),
-      price: Joi.number().integer().default(0),
+      price: Joi.number().integer(),
       productId: Joi.number().integer(1).required(),
       meta: Joi.array().items(Joi.object().keys({
         key: Joi.string().required(),
         value: Joi.string().required()
-      }))
-    })).required(),
-    productId: Joi.number().integer(1).required(),
-    shopId: Joi.number().integer(1).required()
+      }).min(1).required()).required()
+    })).min(1),
+    shopId: Joi.number().integer().min(1).required()
+  }).required().with('variants', 'shopId'),
+  params: Joi.object().keys({
+    productId: Joi.number().integer(1).required()
   })
 };
-const productVariant = [
-  ...[
-    'test-red-m',
-    'test-red',
-    'test-gree'
-  ].map((v, index) => ({
-    productId: 1,
-    name: `${index} ${v}`,
-    sku: require('faker').random.uuid(),
-    variant_asset: require('faker').image.fashion(),
-    weight: 40,
-    price: 40,
-    product_id: 3,
-    meta: [
-      {
-        key: 'color',
-        value: 'red'
-      },
-      {
-        key: 'size',
-        value: 'M'
-      }
-    ]
-  }))
-];
 
 /**
  *
@@ -66,7 +42,6 @@ const productVariant = [
  * @return {Array} array of variant meta_data
  */
 const extractMetaDataAndSku = (savedVariants, variants, shopId) => {
-  const meta = [];
   const result = {
     meta: [],
     sku: []
@@ -92,14 +67,19 @@ const extractMetaDataAndSku = (savedVariants, variants, shopId) => {
  */
 async function handler(req, res) {
   const transaction = await sequelize.transaction();
+  const { variants, shopId } = req.body;
   try {
+    // save product variant
     const savedVariants = await ProductVariant
-      .bulkCreate(productVariant, { transaction, returning: true });
-    const { meta, sku } = extractMetaDataAndSku(savedVariants, productVariant, 6);
+      .bulkCreate(variants, { transaction, returning: true });
+    // extract product meta ans sku from req
+    const { meta, sku } = extractMetaDataAndSku(savedVariants, variants, shopId);
+    // save sku
     await ProductSku.bulkCreate(sku, { transaction, validate: true });
+    // save meta data
     await productVariantMeta.bulkCreate(meta, { transaction, validate: true });
     await transaction.commit();
-    res.send({ message: 'variants created' });
+    res.status(201).send({ message: 'variants created' });
   } catch (e) {
     await transaction.rollback();
     throw (e);
@@ -107,6 +87,6 @@ async function handler(req, res) {
 }
 
 module.exports = [
-  // validator(validate),
+  validator(validate),
   wrap(handler)
 ];

@@ -21,10 +21,6 @@ module.exports = {
       value: {
         type: Sequelize.STRING
       },
-      variant_asset: {
-        type: Sequelize.STRING,
-        field: 'variant_asset'
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

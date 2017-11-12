@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         model: 'product',
         key: 'id'
       }
+    },
+    asset: {
+      type: DataTypes.STRING,
+      field: 'variant_asset'
     }
   }, {
     tableName: 'product_variant',

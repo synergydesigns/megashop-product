@@ -19,7 +19,7 @@ const testData = {
   downloadable: faker.random.boolean()
 };
 
-describe('GET/products', () => {
+describe('POST/products', () => {
   after((done) => {
     DB.sequelize.sync({ force: true }).then(() => done());
   });
