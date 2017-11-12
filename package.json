@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "npm run migrate &&  node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-core/register spec/**/spec.*.js",
+    "test": "npm run migrate:undo && npm run migrate &&  node_modules/.bin/_mocha --timeout 10000 --compilers js:babel-core/register spec/**/spec.*.js",
     "cover": "node_modules/.bin/nyc npm test && nyc report --reporter=cobertura",
     "dev": "babel-watch ./server.js",
     "migrate": "node_modules/.bin/sequelize db:migrate",

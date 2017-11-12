@@ -93,6 +93,7 @@ describe('POST/products_variant', () => {
           done();
         });
     });
+
     it('should return 422 for post without meta', (done) => {
       expect(true).to.eql(true);
       request.post(base)
