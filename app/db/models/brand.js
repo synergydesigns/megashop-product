@@ -7,21 +7,29 @@ module.exports = (sequelize, DataTypes) => {
         is: {
           args: /\w+/g,
           msg: 'Please, enter a valid brand name'
+        },
+        isUnique(name, next) {
+          brand.findOne({
+            where: {
+              shopId: this.shopId,
+              name
+            }
+          }).then((prod) => {
+            if (prod) {
+              return next(new Error(`brand with name ${this.name} already exist`));
+            }
+            next();
+          });
         }
       }
     },
     description: {
-      type: DataTypes.TEXT,
-      validate: {
-        is: {
-          args: /\w+/g,
-          msg: 'Enter a valid description'
-        }
-      }
+      type: DataTypes.TEXT
     },
-    shop_id: {
+    shopId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      field: 'shop_id',
       validate: {
         isInt: {
           args: true,
