@@ -10,7 +10,7 @@ const { ProductPromo } = Model;
 const validate = {
   body: Joi.object().keys({
     label: Joi.string().required(),
-    price: Joi.number().precision(2),
+    price: Joi.number().precision(2).required(),
     productId: Joi.number().integer().min(1).required(),
     shopId: Joi.number().integer().min(1).required(),
     startDate: Joi.date().default(new Date()),

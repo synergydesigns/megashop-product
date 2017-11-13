@@ -23,7 +23,7 @@ validate.options({
 router.post('/products', require('./app/controllers/product/post.product'));
 router
   .post('/products/:productId/variants', require('./app/controllers/product/post.productVariant'));
-router.post('/products/:productId/promos', require('./app/controllers/product/post.productPromo'))
+router.post('/products/:productId/promos', require('./app/controllers/promo/post.promo'));
 
 // brands
 router.post('/brands', require('./app/controllers/brand/post.brand'));

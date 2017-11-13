@@ -8,10 +8,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       label: {
-        type: Sequelize.STRING(255)
+        type: Sequelize.STRING
       },
       price: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.INTEGER
       },
       start_date: {
         type: Sequelize.DATE
@@ -34,5 +34,5 @@ module.exports = {
         type: Sequelize.DATE
       }
     }),
-  down: queryInterface => queryInterface.dropTable('advance_product_price')
+  down: queryInterface => queryInterface.dropTable('product_promo')
 };

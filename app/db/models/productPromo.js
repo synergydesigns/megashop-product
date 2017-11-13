@@ -3,7 +3,7 @@ const moment = require('moment');
 module.exports = (sequelize, DataTypes) => {
   const productPromo = sequelize.define('ProductPromo', {
     label: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         is: {
@@ -25,19 +25,12 @@ module.exports = (sequelize, DataTypes) => {
     startDate: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: sequelize.NOW,
+      defaultValue: new Date(),
       field: 'start_date',
       validate: {
         isDate: {
           args: true,
           msg: 'Please, enter a valid date'
-        },
-        isAfterNow(date, next) {
-          if (moment(date).isSameOrAfter(sequelize.Now)) {
-            next();
-          } else {
-            return next(new Error('startDate should after current date'));
-          }
         }
       }
     },
