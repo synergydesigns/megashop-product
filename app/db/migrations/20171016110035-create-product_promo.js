@@ -1,33 +1,29 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('advance_product_price', {
+    queryInterface.createTable('product_promo', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      label: {
+        type: Sequelize.STRING
+      },
       price: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.INTEGER
       },
-      date_from: {
+      start_date: {
         type: Sequelize.DATE
       },
-      date_to: {
+      end_date: {
         type: Sequelize.DATE
-      },
-      advance_product_pricecol: {
-        type: Sequelize.DECIMAL
-      },
-      advance_product_pricecol1: {
-        type: Sequelize.DECIMAL
       },
       product_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'product',
-          key: 'id'
-        }
+        type: Sequelize.INTEGER
+      },
+      shop_id: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -38,5 +34,5 @@ module.exports = {
         type: Sequelize.DATE
       }
     }),
-  down: queryInterface => queryInterface.dropTable('advance_product_price')
+  down: queryInterface => queryInterface.dropTable('product_promo')
 };

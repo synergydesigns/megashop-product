@@ -12,7 +12,7 @@ const testData = {
   description: faker.random.words(),
 };
 
-describe('POST/products', () => {
+describe('POST/brands', () => {
   after((done) => {
     DB.sequelize.sync({ force: true }).then(() => done());
   });
