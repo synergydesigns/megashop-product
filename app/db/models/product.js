@@ -106,6 +106,10 @@ module.exports = (sequelize, DataTypes) => {
           models.productMeta,
           { foreignKey: 'product_id' }
         );
+        product.belongsTo(
+          models.productCategory,
+          { foreignKey: 'category_id' }
+        );
       }
     }
   });

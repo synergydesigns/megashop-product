@@ -28,6 +28,8 @@ router.post('/products/:productId/promos', require('./app/controllers/promo/post
 // brands
 router.post('/brands', require('./app/controllers/brand/post.brand'));
 
+router.post('/categories', require('./app/controllers/category/post.category'));
+
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Mega Shop Product Micro services',
 }));
