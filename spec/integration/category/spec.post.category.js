@@ -12,19 +12,13 @@ const dataWithoutParentCategoryID = {
   description: faker.random.words()
 };
 
-const dataWithParentCategoryID = {
-  name: 'apple',
-  shopId: 2,
-  description: faker.random.words(),
-  parentCategoryId: 2
-};
-
 describe('POST/Product Category', () => {
   after((done) => {
     DB.sequelize.sync({ force: true }).then(() => done());
   });
 
   const base = '/api/v1/categories';
+  let categoryId;
   describe('Success', () => {
     it('should return 200 for successful save when parent category Id is not supplied', (done) => {
       request.post(base)
@@ -33,6 +27,7 @@ describe('POST/Product Category', () => {
         .end((err, res) => {
           if (err) { throw err; }
           const { data } = res.body;
+          categoryId = data.id;
           expect(data.name).to.equal(dataWithoutParentCategoryID.name);
           expect(data.shopId).to.equal(dataWithoutParentCategoryID.shopId);
           expect(data.parentCategoryId).to.equal(null);
@@ -41,6 +36,12 @@ describe('POST/Product Category', () => {
     });
 
     it('should return 200 for successful save when parent category Id is supplied', (done) => {
+      const dataWithParentCategoryID = {
+        name: 'apple',
+        shopId: 2,
+        description: faker.random.words(),
+        parentCategoryId: categoryId
+      };
       request.post(base)
         .send(dataWithParentCategoryID)
         .expect(201)
@@ -117,6 +118,40 @@ describe('POST/Product Category', () => {
           if (err) { throw err; }
           const { errors } = res.body;
           expect(errors[0].message).equal('"parentCategoryId" must be a number');
+          done();
+        });
+    });
+    it('should return 422 if parent category ID does not belong to shop', (done) => {
+      expect(true).to.eql(true);
+      request.post(base)
+        .send({
+          name: 'apple',
+          shopId: 10,
+          description: faker.random.words(),
+          parentCategoryId: categoryId
+        })
+        .expect(422)
+        .end((err, res) => {
+          if (err) { throw err; }
+          const { errors } = res.body;
+          expect(errors[0].message).to.equal('Invalid parent category');
+          done();
+        });
+    });
+    it('should return 422 if parent category ID does not exist', (done) => {
+      expect(true).to.eql(true);
+      request.post(base)
+        .send({
+          name: 'apple',
+          shopId: 10,
+          description: faker.random.words(),
+          parentCategoryId: 1000000
+        })
+        .expect(422)
+        .end((err, res) => {
+          if (err) { throw err; }
+          const { errors } = res.body;
+          expect(errors[0].message).to.equal('Invalid parent category');
           done();
         });
     });
