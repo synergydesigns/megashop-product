@@ -10,8 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     description: {
-      types: DataTypes.TEXT,
-      allowNull: false
+      types: DataTypes.TEXT
     },
     shopId: {
       types: DataTypes.INTEGER,
