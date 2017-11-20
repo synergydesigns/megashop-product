@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const productCategory = sequelize.define('productCategory', {
     name: {
-      types: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: {
@@ -10,15 +10,28 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     description: {
-      types: DataTypes.TEXT
+      type: DataTypes.TEXT
     },
     shopId: {
-      types: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        isInt: {
+          args: true,
+          msg: 'Please, enter a valid shop id'
+        }
+      },
       field: 'shop_id'
     },
     parentCategoryId: {
-      types: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isInt: {
+          args: true,
+          msg: 'Please, enter a valid product category id'
+        }
+      },
       field: 'parent_category_id'
     }
   }, {

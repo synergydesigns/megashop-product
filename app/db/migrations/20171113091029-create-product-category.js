@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('product_categories', {
+    queryInterface.createTable('product_category', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       parent_category_id: {
-        type: Sequelize.INTEGERs
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -28,5 +28,5 @@ module.exports = {
         type: Sequelize.DATE
       }
     }),
-  down: queryInterface => queryInterface.dropTable('product_categories')
+  down: queryInterface => queryInterface.dropTable('product_category')
 };
