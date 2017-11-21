@@ -3,6 +3,8 @@ import validator from 'express-validation';
 
 import Model from '../../db/models/index';
 import wrap from '../../lib/asyncWrapper';
+import paginationMetaData from '../../lib/paginationMetaData';
+import paginationData from '../../middleware/paginationData';
 
 const { Brand } = Model;
 
@@ -10,29 +12,12 @@ const validate = {
   params: Joi.object().keys({
     shopId: Joi.number().integer().required()
   }),
-  query: Joi.object().keys({
-    limit: Joi.number().integer(),
-    offset: Joi.number().integer()
+  filter: Joi.object().keys({
+    limit: Joi.number().integer().required(),
+    offset: Joi.number().integer().required(),
+    page: Joi.number().integer().required()
   }),
 };
-
-/**
-  * paginationCalculation
-  * @param {Object} condition pagination condition
-  * @returns {Object} return an object
-  */
-function paginationCalculation(condition) {
-  const next = Math.ceil(condition.count / condition.limit);
-  const currentPage = Math.floor((condition.offset / condition.limit) + 1);
-  const pageSize = condition.limit > condition.count
-    ? condition.count : condition.limit;
-  return {
-    pageCount: next,
-    page: currentPage,
-    pageSize: Number(pageSize),
-    totalCount: condition.count
-  };
-}
 
 /**
  *
@@ -41,13 +26,14 @@ function paginationCalculation(condition) {
  * @return {object} response object
  */
 async function handler(req, res) {
-  const limit = req.query.limit || 10;
-  const offset = req.query.offset || 0;
+  const { limit, offset, page } = req.filter;
   const brands = await Brand.findAndCountAll({
     where: { shopId: req.params.shopId }, limit, offset
   });
 
-  const pagination = paginationCalculation({ limit, offset, count: brands.count });
+  const pagination = paginationMetaData({
+    limit, page, count: brands.count, length: brands.rows.length
+  });
   const data = { brands, pagination };
   res.status(200).json({
     data
@@ -55,6 +41,7 @@ async function handler(req, res) {
 }
 
 module.exports = [
+  paginationData,
   validator(validate),
   wrap(handler)
 ];
