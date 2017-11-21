@@ -48,9 +48,7 @@ async function handler(req, res) {
   });
 
   const pagination = paginationCalculation({ limit, offset, count: brands.count });
-
   const data = { brands, pagination };
-
   res.status(200).json({
     data
   });
