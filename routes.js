@@ -27,14 +27,16 @@ router.post('/products/:productId/promos', require('./app/controllers/promo/post
 
 // brands
 router.post('/brands', require('./app/controllers/brand/post.brand'));
+router.get('/shops/:shopId/brands', require('./app/controllers/brand/get.brands'));
+
 
 router.post('/categories', require('./app/controllers/category/post.category'));
+
+app.use('/api/v1', router);
 
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Mega Shop Product Micro services',
 }));
-
-app.use('/api/v1', router);
 
 /* eslint-disable no-unused-vars */
 app.use((err, req, res, next) => {
